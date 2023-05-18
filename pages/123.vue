@@ -8,7 +8,7 @@
         class="main-card"
       >
         <h1>
-          Treasurer
+          Акции
         </h1>
         <div
           style="z-index: 1; position:relative"

@@ -18,9 +18,17 @@
             :headers="stocksTableHeaders"
             :items="stocksTableData"
             :items-per-page="10"
+            :search="search"
             @click:row="redirect"
             class="elevation-0"
           >
+          <template v-slot:top>
+            <v-text-field
+              v-model="search"
+              label="Поиск"
+              class="mx-4"
+            ></v-text-field>
+          </template>
           </v-data-table>
         </div>
       </v-card>
@@ -42,7 +50,8 @@ export default {
         { title: 'Цена', key: 'price' },
         { title: 'Тип', key: 'type' }
       ],
-      stocksTableData: []
+      stocksTableData: [],
+      search: null
     }
   },
   watch: {

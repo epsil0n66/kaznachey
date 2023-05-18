@@ -58,7 +58,7 @@
   const navLinks = [
       { name: 'Главная', to: '/stocks' },
       { name: 'Калькуляторы', to: '/calculators' },
-      { name: 'Портфели', to: '/profile/dashboard' }
+      { name: 'Портфели', to: '/profile/portfolios' }
   ]
   const supabase = useSupabaseClient()
 
