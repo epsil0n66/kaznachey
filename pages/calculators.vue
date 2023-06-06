@@ -374,7 +374,8 @@
   const creditOverPay = computed(() => creditCalc.total * (creditCalc.percentage / 100) * creditCalc.duration)
   const creditOverPayPercentage = computed(() => creditCalc.total / creditCalc.total * (creditCalc.percentage) * creditCalc.duration)
   const creditDurationInMonths = computed(() => creditCalc.duration * 12)
-  const creditPayment = computed(() => Math.floor((creditCalc.total + creditCalc.total * (creditCalc.percentage / 100) * creditCalc.duration) / creditDurationInMonths.value))
+  const creditPayment = computed(() => Math.floor(creditCalc.total * ((creditCalc.percentage / 12 / 100)  * (Math.pow(1 + (creditCalc.percentage / 12 / 100), creditCalc.duration * 12))) / (Math.pow(1 + (creditCalc.percentage / 12 / 100), creditCalc.duration * 12) - 1)))
+  // const creditPayment = computed(() => Math.floor((creditCalc.total + creditCalc.total * (creditCalc.percentage / 100) * creditCalc.duration) / creditDurationInMonths.value))
 
   const investmentCalc = reactive(
     {

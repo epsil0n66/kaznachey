@@ -4,11 +4,11 @@
       <!-- Provides the application the proper gutter -->
       <v-card
         flat
-        style="margin-left: 7.3vw; margin-right: 7.3vw;"
+        style="margin-left: 7.3vw; margin-right: 7.3vw; margin-top: 2vw;"
         class="main-card"
       >
         <h1>
-          Treasurer
+          Список акций
         </h1>
         <div
           style="z-index: 1; position:relative"

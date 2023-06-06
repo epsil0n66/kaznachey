@@ -1,4 +1,4 @@
-import { createChart } from "lightweight-charts"
+import { createChart } from 'lightweight-charts'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.createChart = createChart
