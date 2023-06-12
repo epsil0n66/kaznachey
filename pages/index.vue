@@ -1,7 +1,6 @@
 <template>
   <div>
-    Hi
-    {{ test }}
+
   </div>
 </template>
 
@@ -16,7 +15,7 @@ export default {
   },
 
   async mounted() {
-    this.test = await $fetch('/api/test')
+    this.$router.push('/stocks')
   },
 
   methods: {

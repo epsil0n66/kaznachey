@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-main>
-      <!-- Provides the application the proper gutter -->
       <v-card
         flat
         style="margin-left: 7.3vw; margin-right: 7.3vw; margin-top: 2vw;"

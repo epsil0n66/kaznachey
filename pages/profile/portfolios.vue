@@ -184,7 +184,7 @@
       </h1>
       <v-row>
         <v-card
-        class="pa-8 ma-4"
+        class="pa-4 ma-4"
         v-for="portfolio in createdPortfolios"
         :key="portfolio">
           <div
