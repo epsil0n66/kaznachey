@@ -8,7 +8,7 @@
         class="d-flex align-center flex-column"
       >
         <h1>
-          Создание портфеля
+          Создание инвестиционного портфеля
         </h1>
         <v-row
         style="width: 800px;"
@@ -115,7 +115,7 @@
         </v-btn>
         <v-card
           v-if="generatedPortfolio.length > 0"
-          min-height="200px"
+          min-height="300px"
           class="mb-6"
         >
           <apexchart width="380" type="donut" :options="options" :series="pieChartSeries" />
@@ -180,16 +180,23 @@
       <h1
         class="mb-16"
       >
-          Созданные портфели
+          Созданные инвестиционные портфели
       </h1>
       <v-row>
         <v-card
         class="pa-8 ma-4"
-        v-for="portfolio in createdPortfolios">
+        v-for="portfolio in createdPortfolios"
+        :key="portfolio">
           <div
           class="text-h5">{{ portfolio.name }}</div>
           <div class="text-h6"> {{ portfolio.description }}</div>
           <apexchart width="380" type="donut" :options="{labels: portfolio.portfolio_object.map((el) => { return el.name })} " :series="portfolio.portfolio_object.map((el) => { return el.totalPrice })" />
+          <div class="text-h4">
+            Доходность портфеля: <span :style="{ color: portfolio.priceChange >= 0 ? '#318553' : '#C43D5A' }">{{ portfolio.priceChange }}</span>
+          </div>
+          <div class="text-h5">
+            Доходность в процентах: <span :style="{ color: portfolio.priceChangePercent >= 0 ? '#318553' : '#C43D5A' }">{{ portfolio.priceChangePercent }}%</span>
+          </div>
         </v-card>
       </v-row>
       <v-btn
@@ -269,6 +276,21 @@ export default {
       }
     const secData = await $fetch('https://iss.moex.com/iss/engines/stock/markets/shares/securities.json')
     this.portfolios = secData.securities.data.map((el) => { return { short: el[0], name: el[2], price: el[3], type: el[7], quantity: 1 } }).filter(el => typeof el.price === 'number')
+    this.createdPortfolios.forEach((portfolio, i, a) => {
+      let totalNew = 0
+      let totalOld = 0 
+      portfolio.portfolio_object.forEach((sec) => {
+        let newData = this.portfolios.find(a => a.name === sec.name)
+        if (newData) {
+          totalNew += sec.quantity * newData.price
+          totalOld += sec.totalPrice
+        }
+      })
+      console.log(`всего нового: ${totalNew} всего старого: ${totalOld} разница: ${totalNew - totalOld}`)
+      a[i].priceChange = (totalNew - totalOld).toFixed(2)
+      a[i].priceChangePercent = ((totalNew - totalOld) / totalOld * 100).toFixed(2)
+      console.log(a[i])
+    })
   },
 
   methods: {

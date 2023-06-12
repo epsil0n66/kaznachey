@@ -59,15 +59,15 @@ export default {
   async mounted () {
     let data = await $fetch('https://iss.moex.com/iss/engines/stock/markets/shares/securities.json')
     console.log(data)
-    this.stocksTableData = data.securities.data.map((el) => { return { short: el[0], board: el[1], name: el[2], price: el[3], type: el[7] } }).filter(el => typeof el.price === 'number')
+    this.stocksTableData = data.securities.data.map((el) => { return { short: el[0], board: el[1], name: el[2], price: el[3], type: el[7] } }).filter(el => typeof el.price === 'number' && el.type === 'Т+: Акции и ДР - безадрес.')
     console.log(this.stocksTableData)
   },
   methods: {
     redirect (item, row) {
       // let rowData = JSON.parse(JSON.stringify(row))
       // console.log(rowData.item.value.board)
-      useRouter().push({ path: `/stocks/${row.item.value.board}${row.item.value.short}`})
-      console.log(row.item.value)
+      let routeData = useRouter().resolve({ path: `/stocks/${row.item.value.board}${row.item.value.short}`})
+      window.open(routeData.href, '_blank');
     }
   }
 }
